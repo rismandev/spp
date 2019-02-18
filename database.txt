@@ -1,0 +1,39 @@
+-- Membuat Table admin
+
+CREATE TABLE admin(
+	id_admin INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(100) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	namauser VARCHAR(50) NOT NULL
+);
+
+INSERT INTO admin VALUES ('','admin','$2y$10$CPJ3izanKLiI27pUbzo/y.QKy0W8WRsizusu7t4gsL.9o4rNE2iFC','admin');
+
+CREATE TABLE kelas(
+  id_kelas int(11) NOT NULL AUTO_INCREMENT,
+  nama_kelas varchar(10) NOT NULL,
+  PRIMARY KEY(id_kelas)
+);
+
+
+CREATE TABLE siswa (
+  id_siswa int(11) NOT NULL AUTO_INCREMENT,
+  nis varchar(9) NOT NULL,
+  nama varchar(50) NOT NULL,
+  id_kelas int(11) NOT NULL,
+  jk enum('laki-laki','perempuan'),
+  PRIMARY KEY(id_siswa),
+  FOREIGN KEY(id_kelas) REFERENCES kelas (id_kelas)
+);
+
+CREATE TABLE spp (
+  id_spp int(11) NOT NULL AUTO_INCREMENT,
+  id_siswa int(11) NOT NULL,
+  jumlah int(6) NOT NULL DEFAULT '250000',
+  bulan date NOT NULL,
+  tgl_bayar date DEFAULT NULL,
+  keterangan varchar(2) NOT NULL DEFAULT 'BL',
+  PRIMARY KEY(id_spp),
+  FOREIGN KEY(id_siswa) REFERENCES siswa (id_siswa) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
